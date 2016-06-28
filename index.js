@@ -1,50 +1,33 @@
 var server = require('express');
 var port = process.env.PORT || 3500;
 var app = server();
-var map_global=[];
-var tiny_global=0;
-var max =1000;
-var search = require('./search.js');
+var search = require('bing.search');
 var path = require('path');
+var util = require('util'); 
+ 
+var search_it = new search('hAesGkyxDUEtkrw+n6hDlxBtoZHRnU5QQ6FJvlKqxhk');
 
+ 
 app.listen(port, function(){ 
   console.log('Ready: ' + port);
   });
 
-app.get('/new/:inputurl(*)/', function(req,res) {
-  //the array witll clear at 100 max requested urls
-  if(tiny_global >= max) { 
-    map_global.length=0; 
-    tiny_global=0; 
+app.get('/api/imagesearch/', function(req_g,res_g) {
+ // https://cryptic-ridge-9197.herokuapp.com/api/imagesearch/lolcats%20funny?offset=10
+ 
+search_it.images('cats',
+  {top: 5},
+  function(err, results) {
+    console.log(util.inspect(results,{colors: true, depth: null}));
+    res_g.json(results);
   }
-  
-    res.json({
-      //{ "original_url":"http://foo.com:80", "short_url":"https://little-url.herokuapp.com/8170" }
-      original_url:req.params.inputurl, //=> 'http://google.com'
-      short_url:"https://th-tinyurl-microservice.herokuapp.com/" + tiny_global
-    });
+);
 
-   var temp_arr=[req.params.inputurl , tiny_global];
-    map_global.push(temp_arr);
-    tiny_global = tiny_global + 1;
-   // c=c+1;
+
 });
 
 app.get('/:tiny', function(req,res) {
 
-   console.log("Logging::::" + req.params.tiny + "::::::"  + map_global + "::::::" + map_global.length);
-   var redir_url=search.findTiny(req.params.tiny,map_global);
-   
-   if(redir_url !== false){
-      console.log("Logging::::" + redir_url);
-      res.redirect(redir_url);
-   }
-   else{
-      console.log("Not Found::::" + req.params.tiny);
-       res.json({
-          error:"url is not found"
-       });
-   }
    
 });
 
@@ -61,3 +44,5 @@ app.get('/', function(req, res) {
     }
   });
 });
+
+
