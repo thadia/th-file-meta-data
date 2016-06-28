@@ -12,19 +12,33 @@ app.listen(port, function(){
   console.log('Ready: ' + port);
   });
 
-app.get('/api/imagesearch/', function(req_g,res_g) {
+app.get('/api/imagesearch/*', function(req_g,res_g) {
  // https://cryptic-ridge-9197.herokuapp.com/api/imagesearch/lolcats%20funny?offset=10
- 
-search_it.images('cats',
+console.log(req_g.params[0]); 
+search_it.images(req_g.params[0],
   {top: 5},
   function(err, results) {
     console.log(util.inspect(results,{colors: true, depth: null}));
     res_g.json(results);
   }
 );
-
-
 });
+
+app.get('/api/imagesearch/*', function(req_g,res_g) {
+ // https://cryptic-ridge-9197.herokuapp.com/api/imagesearch/lolcats%20funny?offset=10
+console.log(req_g.params[0]);
+//if(req_g.query.offset !== undefined) { top_default = req_g.query.offset }
+//console.log("DEFAULT: "   + req_g.query);
+
+search_it.images(req_g.params[0],
+  {top: 5},
+  function(err, results) {
+    console.log(util.inspect(results,{colors: true, depth: null}));
+    res_g.json(results);
+  }
+);
+});
+
 
 app.get('/:tiny', function(req,res) {
 
