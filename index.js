@@ -59,7 +59,7 @@ app.get('/api/imagesearch/*', function(req_g,res_g) {
 
 app.get('/api/latest/imagesearch/', function(req_g,res_g) {
 
-  History.find({}, '-_id term time', function(err, latest_data) {
+  History.find({}, '-_id term time',{limit: 10},function(err, latest_data) {
   if (err) return console.error(err);
   else{
     console.log(latest_data);
