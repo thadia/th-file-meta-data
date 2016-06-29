@@ -12,8 +12,8 @@ app.listen(port, function(){
 
 app.post('/upload', upload.single('file'), function (req, res) {
   
-  console.log(req.file.size);
-  res.json(req.file.size);
+  console.log("File size" + req.file.size);
+  res.json({file_name: req.file.name, size: req.file.size});
     // req.file is the `avatar` file 
     // req.body will hold the text fields, if there were any 
 
