@@ -10,9 +10,10 @@ app.listen(port, function(){
   console.log('Ready: ' + port);
   });
 
-  app.post('/upload', upload.single('file'), function (req, res) {
-
-       res.json(req.body);
+app.post('/upload', upload.single('file'), function (req, res,next) {
+  
+  console.log(req.body);
+  //res.json(req.body);
     // req.file is the `avatar` file 
     // req.body will hold the text fields, if there were any 
 
