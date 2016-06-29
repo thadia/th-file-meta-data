@@ -10,7 +10,7 @@ app.listen(port, function(){
   console.log('Ready: ' + port);
   });
 
-  app.post('/upload', upload.single('avatar'), function (req, res) {
+  app.post('/upload', upload.single('file'), function (req, res) {
 
        res.json(req.body);
     // req.file is the `avatar` file 
