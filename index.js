@@ -4,16 +4,17 @@ var app = server();
 var path = require('path');
 var util = require('util'); 
 var multer  = require('multer');
-var upload = multer({ dest: 'uploads/' });
+var upload = multer({ dest: 'upload/' });
 
 app.listen(port, function(){ 
   console.log('Ready: ' + port);
   });
 
-app.post('/docs', upload.single('avatar'), function (req, res, next) {
-     res.json(req.body);
-  // req.file is the `avatar` file 
-  // req.body will hold the text fields, if there were any 
+  app.post('/upload', upload.single('avatar'), function (req, res) {
+
+       res.json(req.body);
+    // req.file is the `avatar` file 
+    // req.body will hold the text fields, if there were any 
 
 });
 
