@@ -10,8 +10,8 @@ app.listen(port, function(){
   });
 
 app.post('/upload', upload.single('file'), function (req, res) {
-  console.log("File size " + req.file.size + "File Name " + req.file.name);
-  res.json({file_name: req.file.name, size: req.file.size});
+  console.log("File size " + req.file.size);
+  res.json({file_size_kb: req.file.size, file_size_mb: req.file.size / 1000 });
 
 });
 
