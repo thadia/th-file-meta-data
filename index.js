@@ -3,21 +3,19 @@ var port = process.env.PORT || 3500;
 var app = server();
 var path = require('path');
 var util = require('util'); 
-var multer  = require('multer')
-var upload = multer({ dest: 'uploads/' })
+var multer  = require('multer');
+var upload = multer({ dest: 'uploads/' });
 
 app.listen(port, function(){ 
   console.log('Ready: ' + port);
   });
 
-app.get('/api/imagesearch/*', function(req_g,res_g) {
-         // https://cryptic-ridge-9197.herokuapp.com/api/imagesearch/lolcats%20funny?offset=10
-    res_g.json(results);
-          
+app.post('/docs', upload.single('avatar'), function (req, res, next) {
+     res.json(req.body);
+  // req.file is the `avatar` file 
+  // req.body will hold the text fields, if there were any 
+
 });
-
-
-
 
 app.get('/', function(req, res) {
   var fileName = path.join(__dirname, 'index.html');
