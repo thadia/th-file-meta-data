@@ -10,7 +10,7 @@ app.listen(port, function(){
   console.log('Ready: ' + port);
   });
 
-app.post('/upload', upload.single('file'), function (req, res,next) {
+app.post('/upload', upload.single('file'), function (req, res) {
   
   console.log(req.file.size);
   res.json(req.file.size);
